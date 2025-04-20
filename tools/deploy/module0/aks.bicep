@@ -21,6 +21,19 @@ param agentCount int = 2
 @description('VM size availability varies by region. If a node contains insufficient compute resources (memory, cpu, etc) pods might fail to run correctly. For more details on restricted VM sizes, see: https://docs.microsoft.com/azure/aks/quotas-skus-regions')
 param agentVMSize string = 'Standard_DS2_v2'
 
+// Parameters...
+
+@description('Log Analytics Workspace name')
+param workspaceName string
+
+// Log Analytics Workspace Definition 
+resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
+  name: workspaceName
+  location: location
+}
+
+// Cluster Definition...
+
 // create azure container registry
 resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' = {
   name: 'acr${uniqueString(resourceGroup().id)}'
@@ -85,18 +98,5 @@ resource akv 'Microsoft.KeyVault/vaults@2022-07-01' = {
     ]
   }
 }
-
-// Parameters...
-
-@description('Log Analytics Workspace name')
-param workspaceName string
-
-// Log Analytics Workspace Definition 
-resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
-  name: workspaceName
-  location: location
-}
-
-// Cluster Definition...
 
 output controlPlaneFQDN string = aks.properties.fqdn
