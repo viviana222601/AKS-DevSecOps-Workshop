@@ -110,7 +110,7 @@ resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
                 days: 0
                 enabled: false
             }
-        }, 
+        } 
         {
             category: 'guard'
             enabled: true
@@ -118,7 +118,7 @@ resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
                 days: 0
                 enabled: false
             }
-        }, 
+        } 
         {
             category: 'kube-apiserver'
             enabled: true
@@ -126,7 +126,7 @@ resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
                 days: 0
                 enabled: false
             }
-        },
+        }
         {
             category: 'kube-audit'
             enabled: true
@@ -134,7 +134,7 @@ resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
                 days: 0
                 enabled: false
             } 
-        }, 
+        } 
         {
             category: 'kube-audit-admin'
             enabled: true
@@ -142,7 +142,7 @@ resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
                 days: 0
                 enabled: false
             }
-        }, 
+        } 
         {
             category: 'kube-controller-manager'
             enabled: true
@@ -150,7 +150,7 @@ resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
                 days: 0
                 enabled: false
             }
-        }, 
+        } 
         {
             category: 'kube-scheduler'
             enabled: true
