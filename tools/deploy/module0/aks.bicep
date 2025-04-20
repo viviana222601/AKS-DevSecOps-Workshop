@@ -95,19 +95,20 @@ param workspaceName string
 resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   name: workspaceName
   location: location
+  // Inside Cluster Definition; add the following to properties
+  
+  addonProfiles: {
+      omsAgent: {
+          enabled: true
+          config: {
+              logAnalyticsWorkspaceResourceID: workspace.id
+          }
+      }
+  
+      // ...
+  }
 }
-// Inside Cluster Definition; add the following to properties
 
-addonProfiles: {
-    omsAgent: {
-        enabled: true
-        config: {
-            logAnalyticsWorkspaceResourceID: workspace.id
-        }
-    }
-
-    // ...
-}
 resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
     name: 'diag01'
     scope: aks
