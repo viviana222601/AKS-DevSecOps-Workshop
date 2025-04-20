@@ -86,4 +86,17 @@ resource akv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 }
 
+// Parameters...
+
+@description('Log Analytics Workspace name')
+param workspaceName string
+
+// Log Analytics Workspace Definition 
+resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
+  name: workspaceName
+  location: location
+}
+
+// Cluster Definition...
+
 output controlPlaneFQDN string = aks.properties.fqdn
