@@ -86,25 +86,6 @@ resource akv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 }
 
-@description('Log Analytics Workspace name')
-param workspaceName string
-
-// Log Analytics Workspace Definition 
-resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
-  name: workspaceName
-  location: location
-}
-
-// Este bloque debe ir dentro del recurso AKS, no aquí:
-// addonProfiles: {
-//     omsAgent: {
-//         enabled: true
-//         config: {
-//             logAnalyticsWorkspaceResourceID: workspace.id
-//         }
-//     }
-// }
-
 resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
   name: 'diag01'
   scope: aks
@@ -170,8 +151,5 @@ resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
     workspaceId: workspace.id
   }
 }
-
-
-
 
 output controlPlaneFQDN string = aks.properties.fqdn
