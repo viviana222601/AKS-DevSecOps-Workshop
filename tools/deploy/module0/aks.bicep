@@ -95,6 +95,12 @@ param workspaceName string
 resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   name: workspaceName
   location: location
+}
+
+resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
+    name: 'diag01'
+    scope: aks
+    properties: {
   // Inside Cluster Definition; add the following to properties
   
   addonProfiles: {
@@ -106,13 +112,7 @@ resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
       }
   
       // ...
-  }
-}
-
-resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
-    name: 'diag01'
-    scope: aks
-    properties: {
+  },
         logs: [{
             category: 'cluster-autoscaler'
             enabled: true
