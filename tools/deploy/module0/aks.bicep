@@ -110,14 +110,16 @@ resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
                 days: 0
                 enabled: false
             }
-        }, {
+        }, 
+        {
             category: 'guard'
             enabled: true
             retentionPolicy: {
                 days: 0
                 enabled: false
             }
-        }, {
+        }, 
+        {
             category: 'kube-apiserver'
             enabled: true
             retentionPolicy: {
@@ -132,21 +134,24 @@ resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
                 days: 0
                 enabled: false
             } 
-        }, {
+        }, 
+        {
             category: 'kube-audit-admin'
             enabled: true
             retentionPolicy: {
                 days: 0
                 enabled: false
             }
-        }, {
+        }, 
+        {
             category: 'kube-controller-manager'
             enabled: true
             retentionPolicy: {
                 days: 0
                 enabled: false
             }
-        }, {
+        }, 
+        {
             category: 'kube-scheduler'
             enabled: true
             retentionPolicy: {
