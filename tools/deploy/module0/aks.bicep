@@ -24,7 +24,7 @@ param agentVMSize string = 'Standard_DS2_v2'
 // Parameters...
 
 @description('Log Analytics Workspace name')
-param workspaceName string = 'devsecops-logs'
+param workspaceName string = 'devsecops-logs' 
 
 // Log Analytics Workspace Definition 
 resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
