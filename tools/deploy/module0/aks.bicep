@@ -86,8 +86,6 @@ resource akv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 }
 
-// Parameters...
-
 @description('Log Analytics Workspace name')
 param workspaceName string
 
@@ -97,76 +95,82 @@ resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   location: location
 }
 
+// Este bloque debe ir dentro del recurso AKS, no aquí:
+// addonProfiles: {
+//     omsAgent: {
+//         enabled: true
+//         config: {
+//             logAnalyticsWorkspaceResourceID: workspace.id
+//         }
+//     }
+// }
+
 resource diag01 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
-    name: 'diag01'
-    scope: aks
-    properties: {
-  // Inside Cluster Definition; add the following to properties
-  
-  addonProfiles: {
-      omsAgent: {
-          enabled: true
-          config: {
-              logAnalyticsWorkspaceResourceID: workspace.id
-          }
+  name: 'diag01'
+  scope: aks
+  properties: {
+    logs: [
+      {
+        category: 'cluster-autoscaler'
+        enabled: true
+        retentionPolicy: {
+          days: 0
+          enabled: false
+        }
+      },
+      {
+        category: 'guard'
+        enabled: true
+        retentionPolicy: {
+          days: 0
+          enabled: false
+        }
+      },
+      {
+        category: 'kube-apiserver'
+        enabled: true
+        retentionPolicy: {
+          days: 0
+          enabled: false
+        }
+      },
+      {
+        category: 'kube-audit'
+        enabled: true
+        retentionPolicy: {
+          days: 0
+          enabled: false
+        }
+      },
+      {
+        category: 'kube-audit-admin'
+        enabled: true
+        retentionPolicy: {
+          days: 0
+          enabled: false
+        }
+      },
+      {
+        category: 'kube-controller-manager'
+        enabled: true
+        retentionPolicy: {
+          days: 0
+          enabled: false
+        }
+      },
+      {
+        category: 'kube-scheduler'
+        enabled: true
+        retentionPolicy: {
+          days: 0
+          enabled: false
+        }
       }
-  
-      // ...
-  },
-        logs: [{
-            category: 'cluster-autoscaler'
-            enabled: true
-            retentionPolicy: {
-                days: 0
-                enabled: false
-            }
-        }, {
-            category: 'guard'
-            enabled: true
-            retentionPolicy: {
-                days: 0
-                enabled: false
-            }
-        }, {
-            category: 'kube-apiserver'
-            enabled: true
-            retentionPolicy: {
-                days: 0
-                enabled: false
-            }
-        },
-        {
-            category: 'kube-audit'
-            enabled: true
-            retentionPolicy: {
-                days: 0
-                enabled: false
-            } 
-        }, {
-            category: 'kube-audit-admin'
-            enabled: true
-            retentionPolicy: {
-                days: 0
-                enabled: false
-            }
-        }, {
-            category: 'kube-controller-manager'
-            enabled: true
-            retentionPolicy: {
-                days: 0
-                enabled: false
-            }
-        }, {
-            category: 'kube-scheduler'
-            enabled: true
-            retentionPolicy: {
-                days: 0
-                enabled: false
-            }
-        }]
-        workspaceId: workspace.id
-    }
+    ]
+    workspaceId: workspace.id
+  }
 }
+
 
 
 
